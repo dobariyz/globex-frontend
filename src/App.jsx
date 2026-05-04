@@ -5,6 +5,7 @@ import { feature } from "topojson-client";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Grid2D } from "./components/Grid2D";
+import { getMarketData } from "./services/api";
 import "./App.css";
 
 // ── Global CSS injected once ──────────────────────────────────────────────────
@@ -452,8 +453,7 @@ const colorMap = useMemo(() => {
 
   const fetchData = async () => {
     try {
-      const res  = await fetch("http://localhost:8080/api/markets/live");
-      const data = await res.json();
+      const data = await getMarketData();
       if (!data?.length) { setError("No market data"); setLoading(false); return; }
 
       const now = new Date();
